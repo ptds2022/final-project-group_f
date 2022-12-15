@@ -39,9 +39,5 @@ require(reshape2)
 x <- dcast(recipe.tokens, title ~ X, value.var = paste0("word", 1:10))
 head(x)
 
-for (i in 0:max(recipe.tokens$X)){
-  if recipe.tokens$X == i
-}
-
 
 #tryout <- dcast(recipe.tokens, X ~ title, value.var="word")
