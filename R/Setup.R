@@ -53,3 +53,10 @@ opts_chunk$set(
   message = FALSE,
   echo = FALSE
 )
+
+##################################################################################
+## The following code creates the needed data in the environment to run the app ##
+##################################################################################
+RecipeNLG_dataset <- read_csv("data-raw/Recipe_new.csv")
+hunder_rows <- head(RecipeNLG_dataset, 100)
+ingredient_sep <- unlist(str_extract_all(hunder_rows$NER,  "\"([^\"]*)\""))
