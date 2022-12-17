@@ -52,7 +52,7 @@ my_ui <-fluidPage(
                    label ='Get my recipe ! ',
                    icon = icon('list'))
     ),
-    mainPanel(textOutput('selected_values'),
+    mainPanel(htmlOutput('selected_values'),
               textOutput('difficulty'))
   )
 )
@@ -80,7 +80,7 @@ server<-function(input,output, session){ #added session
 
     print(values$selected_values)
 
-    output$selected_values <- renderText({paste(values$selected_values, collapse = ", ")})
+    output$selected_values <- renderText({paste(values$selected_values, collapse = HTML("<br/>"))})
 
 
   })
