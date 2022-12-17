@@ -70,7 +70,11 @@ server<-function(input,output, session){ #added session
 
     print(values$selected_values)
 
-    output$selected_values <- renderText({paste(values$selected_values, collapse = HTML("<br/>"))})
+    output$selected_values <- renderText({
+      paste("<ul>",
+            paste("<li>", values$selected_values, "</li>", collapse = ""),
+            "</ul>", collapse = "")
+    })
 
 
   })
