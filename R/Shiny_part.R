@@ -72,7 +72,7 @@ server<-function(input,output, session){ #added session
 
     output$selected_values <- renderText({
       paste("<ul>",
-            paste("<li>", values$selected_values, "</li>", collapse = ""),
+            paste("<li>", lapply(values$selected_values, HTML), "</li>", "<hr style='border: 1px dashed #333; margin: 5px 0'>", collapse = ""),
             "</ul>", collapse = "")
     })
 
