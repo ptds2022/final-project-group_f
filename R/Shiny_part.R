@@ -10,9 +10,21 @@ values = c('easy','medium','hard') #. for tests
 # UI (user interface)
 my_ui <-fluidPage(
   #background set up
-  setBackgroundColor(color = "ghostwhite",
+  setBackgroundColor(color = "lightyellow",
                      gradient = 'radial',
                      direction = c('top','left')),
+  tags$style(HTML("
+      #first {
+          border: 2px dashed black;
+          padding: 1px
+      }
+      h3 {
+          font-family: 'Amatic SC', cursive;
+      }
+      #second {
+          font-family: 'Amatic SC', cursive;
+      }
+    ")),
   # Application title
   titlePanel("Product bundling"),
   # Sidebar with a slider input for number of cells
@@ -43,7 +55,10 @@ my_ui <-fluidPage(
                    label ='Get my recipe ! ',
                    icon = icon('list'))
     ),
-    mainPanel(htmlOutput('selected_values'))
+    mainPanel(id = "first",
+              style = paste0("padding-left: 5px;height: 90vh; overflow-x: auto; overflow-y: auto;"),
+              h3("Ingredient list"),
+              htmlOutput('selected_values'), style = "background-color: lightyellow;")
   )
 )
 
@@ -52,6 +67,7 @@ my_ui <-fluidPage(
 server<-function(input,output, session){ #added session
   # Initialize reactive values to store the inputs
   values <- reactiveValues(selected_values = character(0))
+
 
   # user input understood by the app
   # Observe the "add" button
@@ -71,7 +87,7 @@ server<-function(input,output, session){ #added session
     print(values$selected_values)
 
     output$selected_values <- renderText({
-      paste("<ul>",
+      paste("<ul style='list-style-type: square; font-size: 20px'>",
             paste("<li>", lapply(values$selected_values, HTML), "</li>", "<hr style='border: 1px dashed #333; margin: 5px 0'>", collapse = ""),
             "</ul>", collapse = "")
     })
