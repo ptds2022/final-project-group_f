@@ -18,15 +18,6 @@ my_ui <-fluidPage(
   # Sidebar with a slider input for number of cells
   sidebarLayout(
     sidebarPanel(
-      sliderInput(inputId = "cells",
-                  label = "Price range",
-                  min = 1,
-                  max = 50,
-                  value = 15),
-      textInput(inputId = "category_x",#The input slot that will be used to access the value.
-                label = "Product_category"),
-      textInput(inputId = "feature_2",
-                label = "feature2"),
       fluidRow( #Added fluidRow to put the button and input field next to eachother
         column(9,
 
@@ -52,8 +43,7 @@ my_ui <-fluidPage(
                    label ='Get my recipe ! ',
                    icon = icon('list'))
     ),
-    mainPanel(htmlOutput('selected_values'),
-              textOutput('difficulty'))
+    mainPanel(htmlOutput('selected_values'))
   )
 )
 
