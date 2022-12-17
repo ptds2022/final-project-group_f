@@ -27,7 +27,23 @@ my_ui <-fluidPage(
                 label = "Product_category"),
       textInput(inputId = "feature_2",
                 label = "feature2"),
-      selectizeInput(inputId = 'lol',label = 'Ingredient list',choices = ingredient_sep, options = list(maxItems = 30, placeholder = 'select an ingredient',create = T)),
+      fluidRow( #Added fluidRow to put the button and input field next to eachother
+        column(9,
+
+          selectizeInput(inputId = 'lol',
+                         label = 'Ingredient list',
+                         choices = ingredient_sep,
+                         options = list(maxItems = 30, placeholder = 'select an ingredient',create = T)
+
+                         ),
+          style = "padding:1px",
+          style = "padding-left:10px"),
+        column(1,
+          actionButton("add", "Add"),
+          style = "margin-top: 26px;",
+          style = "padding:0px")
+        ),
+
       selectizeInput('difficulty',label = 'Difficulty',choices = values,
                      options = list(maxItems = 1,
                                     placeholder = 'select a difficulty',
@@ -36,21 +52,35 @@ my_ui <-fluidPage(
                    label ='Get my recipe ! ',
                    icon = icon('list'))
     ),
-    mainPanel(textOutput('lol'),
+    mainPanel(textOutput('selected_values'),
               textOutput('difficulty'))
   )
 )
 
 ## server
 
-server<-function(input,output){
-  # define data
+server<-function(input,output, session){ #added session
+  # Initialize reactive values to store the inputs
+  values <- reactiveValues(selected_values = character(0))
 
   # user input understood by the app
-  output$lol<-renderText({input$lol}) # list all ingredients selected
-  output$difficulty<-renderText({input$difficulty})# list difficulty
+  # Observe the "add" button
+  observeEvent(input$add, { #added observeEvent to make the button interactive with the input field
 
-  #my_little_function_2({input$lol}, {input$difficulty})
+    # Get the selected value from the input
+    selected_values <- input$lol
+
+    # Do something with the selected value
+    # For example, you can update the selectizeInput choices with the selected value
+    #updateSelectizeInput(session, "lol", choices = c(ingredient_sep, selected_values))
+
+    values$selected_values <- c(values$selected_values, selected_values)
+    print(values$selected_values)
+
+    output$selected_values <- renderText({paste(values$selected_values, collapse = ", ")})
+  })
+
+  output$difficulty<-renderText({input$difficulty})# list difficulty
 
   #show list of recipces when clicking on button
   y<-reactive(input$difficulty) %>% bindEvent(input$button)
