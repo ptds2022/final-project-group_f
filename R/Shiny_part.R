@@ -57,7 +57,7 @@ my_ui <-fluidPage(
     ),
     mainPanel(id = "first",
               style = paste0("padding-left: 5px;height: 90vh; overflow-x: auto; overflow-y: auto;"),
-              h3("Ingredient list"),
+              div(style = "text-align: center", h3("Ingredient list")),
               htmlOutput('selected_values'), style = "background-color: lightyellow;")
   )
 )
