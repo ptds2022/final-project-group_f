@@ -150,3 +150,15 @@ my_little_function_2 <- function(x, difficulty) {
 }
 
 my_little_function_2(ingredient_to_detect, "Medium")
+
+
+##add images  to sample
+img <- rep('/Users/edwardtandia/Desktop/##/tamps/1_auto_x1 (1) copie.jpg',12)
+testo<-subset_10_first %>% mutate('Images' = c(img))
+
+
+
+
+
+
+

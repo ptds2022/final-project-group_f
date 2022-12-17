@@ -61,6 +61,7 @@ Imports:
     zeallot (>= 0.1.0),
     shiny (>= 1.7.3),
     shinyWidgets (>= 0.7.5)
+    DT(>=0.26)
 RoxygenNote: 7.2.2
 Suggests: 
     knitr,
