@@ -75,9 +75,14 @@ server<-function(input,output, session){ #added session
     #updateSelectizeInput(session, "lol", choices = c(ingredient_sep, selected_values))
 
     values$selected_values <- c(values$selected_values, selected_values)
+
+    updateSelectizeInput(session, "lol", choices = ingredient_sep, selected = NULL)
+
     print(values$selected_values)
 
     output$selected_values <- renderText({paste(values$selected_values, collapse = ", ")})
+
+
   })
 
   output$difficulty<-renderText({input$difficulty})# list difficulty
