@@ -1,7 +1,4 @@
-RecipeNLG_dataset <- read_csv("data-raw/Recipe_new.csv")
-hunder_rows <- head(RecipeNLG_dataset, 100)
 
-View(hunder_rows)
 
 ##packages
 pckg <- c('quanteda','ggwordcloud','quanteda.textplots','broom','tidytext','quanteda.textstats')
@@ -22,6 +19,11 @@ library(quanteda)
 library(quanteda.textstats)
 library(quanteda.textplots)
 library(stringr)
+
+RecipeNLG_dataset <- read_csv("data-raw/Recipe_new.csv")
+hunder_rows <- head(RecipeNLG_dataset, 100)
+ingredient_sep <- unlist(str_extract_all(hunder_rows$NER,  "\"([^\"]*)\""))
+View(hunder_rows)
 
 crude.cp <- corpus(hunder_rows$NER) #each row = text distinct
 crude.tk <- tokens(
@@ -56,6 +58,7 @@ View(hunder_rows_analysis)
 
 # list of ingredient for the sake of the example until we create the function
 ingredient_to_detect <- c("rice", "brown", "nuts", "butter")  %>% tolower()
+difficulty <- c("medium")
 
 
 hunder_rows_analysis <- hunder_rows_analysis %>%
@@ -149,4 +152,4 @@ my_little_function_2 <- function(x, difficulty) {
   return(head(subset_10_first, 10))
 }
 
-my_little_function_2(ingredient_to_detect, "Medium")
+my_little_function_2(ingredient_to_detect, difficulty)
