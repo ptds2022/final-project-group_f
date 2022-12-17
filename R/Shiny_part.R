@@ -1,7 +1,8 @@
 # load packages
 source("Setup.R")
-lol = c('baba','mama','dada','nini','wapi') #  for tests
-values = c('easy','medium','hard') # for tests
+lol = c('baba','mama','dada','nini','wapi') #. for tests
+values = c('easy','medium','hard')#. for tests
+ingredient_sep <- unlist(str_extract_all(hunder_rows$NER,  "\"([^\"]*)\""))
 ##shinyApp
 
 # UI (user interface)
@@ -24,7 +25,7 @@ my_ui <-fluidPage(
                 label = "Product_category"),
       textInput(inputId = "feature_2",
                 label = "feature2"),
-      selectizeInput(inputId = 'lol',label = 'Ingredient list',choices = lol, options = list(maxItems = 5,placeholder = 'select an ingredient',create = T)),
+      selectizeInput(inputId = 'lol',label = 'Ingredient list',choices = ingredient_sep, options = list(maxItems = 5,placeholder = 'select an ingredient',create = T)),
       selectizeInput('difficulty',label = 'Difficulty',choices = values,
                      options = list(maxItems = 3,
                                     placeholder = 'select a difficulty',
