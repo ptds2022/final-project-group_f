@@ -29,7 +29,7 @@ my_ui <-fluidPage(
                 label = "feature2"),
       selectizeInput(inputId = 'lol',label = 'Ingredient list',choices = ingredient_sep, options = list(maxItems = 30, placeholder = 'select an ingredient',create = T)),
       selectizeInput('difficulty',label = 'Difficulty',choices = values,
-                     options = list(maxItems = 3,
+                     options = list(maxItems = 1,
                                     placeholder = 'select a difficulty',
                                     create = T)),
       actionButton(inputId='button', # generate recipe
