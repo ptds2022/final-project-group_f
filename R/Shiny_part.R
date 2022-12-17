@@ -1,8 +1,8 @@
 # load packages
 source("Setup.R")
 lol = c('baba','mama','dada','nini','wapi') #. for tests
-values = c('easy','medium','hard')#. for tests
-ingredient_sep <- unlist(str_extract_all(hunder_rows$NER,  "\"([^\"]*)\""))
+values = c('easy','medium','hard') #. for tests
+
 ##shinyApp
 
 # UI (user interface)
@@ -25,19 +25,19 @@ my_ui <-fluidPage(
                 label = "Product_category"),
       textInput(inputId = "feature_2",
                 label = "feature2"),
-      selectizeInput(inputId = 'lol',label = 'Ingredient list',choices = ingredient_sep, options = list(maxItems = 5,placeholder = 'select an ingredient',create = T)),
+      selectizeInput(inputId = 'lol',label = 'Ingredient list',choices = ingredient_sep, options = list(maxItems = 30,placeholder = 'select an ingredient',create = T)),
       selectizeInput('difficulty',label = 'Difficulty',choices = values,
                      options = list(maxItems = 3,
                                     placeholder = 'select a difficulty',
                                     create = T)),
       actionButton(inputId='button', # generate recipe
                    label ='Get my recipe ! ',
-                   icon = icon('list'))),
+                   icon = icon('list')),
 
     # Show a plot, NN of product bundles
     mainPanel(textOutput('lol'),
               textOutput('difficulty'),
-             DT::dataTableOutput('taBle'))
+              dataTableOutput("table_output")
   )
 )
 
@@ -52,6 +52,7 @@ server<-function(input,output){
   output$lol<-renderText({input$lol}) # list all ingredients selected
   output$difficulty<-renderText({input$difficulty})# list difficulty
 
+  #my_little_function_2({input$lol}, {input$difficulty})
 
   #show list of recipces when clicking on button
   y<-reactive(input$difficulty) %>% bindEvent(input$button)
