@@ -31,6 +31,7 @@ product_name <- product_name %>%
 print(product_name)
 
 ingredient_sep <- unlist(str_extract_all(hunder_rows$NER,  "\"([^\"]*)\""))
+ingredient_sep <- gsub("\"", "", ingredient_sep)
 
 #hunder_rows$NER <- unlist(hunder_rows$NER)
 
