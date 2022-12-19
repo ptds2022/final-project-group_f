@@ -10,7 +10,7 @@ values = c('easy','medium','hard') #. for tests
 
 
 # UI (user interface)
-my_ui <-fluidPage(
+my_ui <- fluidPage(
   #background set up
   setBackgroundColor(color = "lightyellow",
                      gradient = 'radial',
