@@ -1,5 +1,7 @@
 # load packages
 source("Setup.R")
+install.packages('DT')
+library('DT')
 lol = c('baba','mama','dada','nini','wapi') #. for tests
 values = c('easy','medium','hard') #. for tests
 
@@ -25,24 +27,20 @@ my_ui <-fluidPage(
                 label = "Product_category"),
       textInput(inputId = "feature_2",
                 label = "feature2"),
-      selectizeInput(inputId = 'lol',label = 'Ingredient list',choices = ingredient_sep, options = list(maxItems = 30,placeholder = 'select an ingredient',create = T)),
+      selectizeInput(inputId = 'lol',label = 'Ingredient list',choices = ingredient_sep, options = list(maxItems = 30, placeholder = 'select an ingredient',create = T)),
       selectizeInput('difficulty',label = 'Difficulty',choices = values,
-                     options = list(maxItems = 3,
+                     options = list(maxItems = 1,
                                     placeholder = 'select a difficulty',
                                     create = T)),
       actionButton(inputId='button', # generate recipe
                    label ='Get my recipe ! ',
-                   icon = icon('list')),
-
-    # Show a plot, NN of product bundles
+                   icon = icon('list'))
+    ),
     mainPanel(textOutput('lol'),
-              textOutput('difficulty'),
-              dataTableOutput("table_output")
+              textOutput('difficulty'))
   )
 )
 
-install.packages('DT')
-library('DT')
 ## server
 
 server<-function(input,output){
@@ -61,7 +59,7 @@ server<-function(input,output){
   x<-reactive(as.data.frame(subset_10_first) %>% filter(Difficulty == input$difficulty)) %>%
                 bindEvent(input$button)  #
 
-  output$taBle<-DT::renderDataTable({
+  output$table<-DT::renderDataTable({
     # call data
     DT::datatable(x())})
 }
