@@ -25,22 +25,6 @@ hunder_rows <- head(RecipeNLG_dataset, 1000)
 ingredient_sep <- unlist(str_extract_all(hunder_rows$NER,  "\"([^\"]*)\""))
 View(hunder_rows)
 
-crude.cp <- corpus(hunder_rows$NER) #each row = text distinct
-crude.tk <- tokens(
-  crude.cp,
-  remove_numbers = TRUE,
-  remove_punct = TRUE,
-  remove_symbols = TRUE,
-  remove_separators = TRUE
-  )
-
-crude.tk.dfm <- dfm(crude.tk)
-PO_softwares.tfidf <- dfm_tfidf(crude.tk.dfm)
-
-tstat_key <- textstat_keyness(dfm_group(crude.tk.dfm ))
-textplot_keyness(tstat_key)
-
-
 ### Add Difficulty columns
 hunder_rows$lenghts_ingredient <- lengths(gregexpr("\\W+", hunder_rows$NER)) + 1
 #View(hunder_rows)
