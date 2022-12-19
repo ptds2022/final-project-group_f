@@ -1,5 +1,5 @@
 # load packages
-source("R/Setup.R")
+source("Setup.R")
 #source('R/Ingredient present.R')
 install.packages('DT')
 library('DT')
