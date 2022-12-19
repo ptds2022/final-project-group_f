@@ -1,7 +1,6 @@
 library(stringr)
 library(purrr)
 
-
 myfunct <- function(input,difficulty1){
 
   #Create a sample data frame
