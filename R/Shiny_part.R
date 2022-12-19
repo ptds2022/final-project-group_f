@@ -119,7 +119,11 @@ server<-function(input,output, session){ #added session
 
   output$taBle<-DT::renderDataTable({
     # call data
-    DT::datatable(y())})
+    DT::datatable(y(),options = list(
+      initComplete = JS(
+        "function(settings, json) {",
+        "$(this.api().table().header()).css({'background-color': '#CA9901', 'color': '#fff'});",
+        "}")))})
 }
 
 

@@ -2,7 +2,6 @@ library(stringr)
 library(purrr)
 
 
-
 myfunct <- function(input,difficulty1){
 
   #Create a sample data frame
@@ -27,7 +26,12 @@ myfunct <- function(input,difficulty1){
   #      df$ingredient_count, df$all_ingredients ) %>% as.data.frame()
   #View(df)
   df<- df%>% arrange(na_count, decreasing = F)  %>%
-    filter(Difficulty ==difficulty1)
+    #filter(has_empty==F)%>%
+    filter(Difficulty ==difficulty1)%>% group_by()%>%
+    summarise(Titles = title,
+              Description = ingredients,
+              Ingredients = NER,
+              Difficulty = Difficulty)
 
   return(df)
   }
