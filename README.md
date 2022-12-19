@@ -1,6 +1,6 @@
 # final_project
 
-**  Get my Recipe Project ! 
+1. Get my Recipe Project ! 
 
 
 2. Project Description
@@ -23,12 +23,12 @@ We encountered a few limitations :
 
 
 
-4. How to Install and Run the Project
+3. How to Install and Run the Project
 
 To run the project you will need to install the package .... 
 
 
-5. How to Use the Project
+4. How to Use the Project
 
 While the app is on, the user has the possibility to select different ingredients and the difficulty level. He/she  needs to click on the button "add" to register the selected ingredient and finally click on the button 'Get my recipe ! ' to generate the list of recipe. 
 
