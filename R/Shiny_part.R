@@ -55,10 +55,14 @@ my_ui <-fluidPage(
                    label ='Get my recipe ! ',
                    icon = icon('list'))
     ),
+    # Add a button to trigger the computation
     mainPanel(id = "first",
               style = paste0("padding-left: 5px;height: 90vh; overflow-x: auto; overflow-y: auto;"),
               div(style = "text-align: center", h3("Ingredient list")),
-              htmlOutput('selected_values'), style = "background-color: lightyellow;")
+              htmlOutput('selected_values'),
+              actionButton("compute_button", "Compute"),
+              dataTableOutput('df_output'),
+              style = "background-color: lightyellow;")
   )
 )
 
@@ -93,6 +97,34 @@ server<-function(input,output, session){ #added session
     })
 
 
+  })
+  observeEvent(input$compute_button, {
+    # Add an output to display the data frame
+
+
+      # Extract the selected values from the output of the Shiny code
+      selected_values <- lapply(values$selected_values, HTML)
+      ingredients <- selected_values
+
+      # Use the selected values as the ingredients input in the separate code file
+      library(stringr)
+      library(purrr)
+      df <- data.frame(hunder_rows['NER'])
+      df$sugar_present <- str_detect(df$NER, "sugar")
+      df$sub_ing <- map_chr(df$NER, ~ paste(str_extract(.x, ingredients), collapse = ", "))
+      df$has_empty <- str_detect(df$sub_ing, "NA")
+      df$na_count <- str_count(df$sub_ing, "NA")
+      df$sub_ing_count <- str_count(df$sub_ing, ", ") + 1
+      df$ingredient_count <- str_count(df$NER, ", ") + 1
+      df$all_ingredients <- df$ingredient_count - (df$sub_ing_count - df$na_count)
+
+      # Return the resulting data frame
+      print(df)
+
+      output$df_output <- renderDataTable({
+        # Check if the compute button has been clicked
+        req(input$df)
+    })
   })
 
   output$difficulty<-renderText({input$difficulty})# list difficulty
