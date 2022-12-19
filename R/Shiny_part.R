@@ -8,110 +8,72 @@ values = c('easy','medium','hard') #. for tests
 
 ##shinyApp
 
+
 # UI (user interface)
 my_ui <-fluidPage(
   #background set up
-  setBackgroundColor(color = "ghostwhite",
+  setBackgroundColor(color = "lightyellow",
                      gradient = 'radial',
                      direction = c('top','left')),
+  tags$style(HTML("
+      #first {
+          border: 2px dashed black;
+          padding: 1px
+      }
+      h3 {
+          font-family: 'Amatic SC', cursive;
+      }
+      #second {
+          font-family: 'Amatic SC', cursive;
+      }
+    ")),
   # Application title
   titlePanel("Product bundling"),
   # Sidebar with a slider input for number of cells
   sidebarLayout(
     sidebarPanel(
-      sliderInput(inputId = "cells",
-                  label = "Price range",
-                  min = 1,
-                  max = 50,
-                  value = 15),
-      textInput(inputId = "category_x",#The input slot that will be used to access the value.
-                label = "Product_category"),
-      textInput(inputId = "feature_2",
-                label = "feature2"),
-      selectizeInput(inputId = 'lol',label = 'Ingredient list',choices = ingredient_sep, options = list(maxItems = 30, placeholder = 'select an ingredient',create = T)),
+      fluidRow( #Added fluidRow to put the button and input field next to eachother
+        column(9,
+
+               selectizeInput(inputId = 'lol',
+                              label = 'Ingredient list',
+                              choices = ingredient_sep,
+                              options = list(maxItems = 30, placeholder = 'select an ingredient',create = T)
+
+               ),
+               style = "padding:1px",
+               style = "padding-left:10px"),
+        column(1,
+               actionButton("add", "Add"),
+               style = "margin-top: 26px;",
+               style = "padding:0px")
+      ),
+
       selectizeInput('difficulty',label = 'Difficulty',choices = values,
                      options = list(maxItems = 1,
                                     placeholder = 'select a difficulty',
                                     create = T)),
-      actionButton(inputId='button', # generate recipe
+      actionButton(inputId='button', # generate recipe
                    label ='Get my recipe ! ',
                    icon = icon('list'))
     ),
-<<<<<<< Updated upstream
-    mainPanel(textOutput('lol'),
-              textOutput('difficulty'))
-=======
-<<<<<<< Updated upstream
     mainPanel(id = "first",
               style = paste0("padding-left: 5px;height: 90vh; overflow-x: auto; overflow-y: auto;"),
               div(style = "text-align: center", h3("Ingredient list")),
-              htmlOutput('selected_values'), style = "background-color: lightyellow;")
-=======
-<<<<<<< Updated upstream
-    mainPanel(textOutput('lol'),
-              textOutput('difficulty'))
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-  )
-=======
-    mainPanel(id = "first",
-              style = paste0("padding-left: 5px;height: 90vh; overflow-x: auto; overflow-y: auto;"),
-              div(style = "text-align: center", h3("Ingredient list")),
-              htmlOutput('selected_values'),
-              style = "background-color: lightyellow;")
-  ),
+              htmlOutput('selected_values'), style = "background-color: lightyellow;")),
+
   fluidRow(column(4), h4('List of Recipes'),
            width = 4, height = 2,
            dataTableOutput('taBle'),offset = 6),
   fluidRow(column(6,h4('X'),
                   textOutput('image_i'),width = 4, height = 2,
                   offset = 2),
-           column(9,h4 ('Y'),
-                textOutput('recette'),width = 4,
-                height = 2))
->>>>>>> Stashed changes
-)
+           column(8,h4 ('Y'),
+                  textOutput('recette'),width = 4,
+                  height = 2))
+  )
 
 ## server
-
-server<-function(input,output){
-  # define data
-
-  # user input understood by the app
-  output$lol<-renderText({input$lol}) # list all ingredients selected
-  output$difficulty<-renderText({input$difficulty})# list difficulty
-
-  #my_little_function_2({input$lol}, {input$difficulty})
-
-  #show list of recipces when clicking on button
-  y<-reactive(input$difficulty) %>% bindEvent(input$button)
-
-  # load dataset
-  #if(grepl(input$lol,subset_10_first$NER==TRUE)){
-
-  x<-reactive(as.data.frame(subset_10_first) %>%
-                mutate(actionButton(inputId = 'sexo',label= 'More') %>%
-                filter(Difficulty == input$difficulty)) %>%
-                bindEvent(input$button))
-
-  output$taBle<-DT::renderDataTable({
-    # call data
-    DT::datatable(x())})
-
-  #output$image<- renderText({hbjg})
-  #output$recette<-renderText({jjk})
-  }
-
-
-## run the app
-
-shinyApp(my_ui,server)
-
-
-
-
-############# attempts ################
-
 
 server<-function(input,output, session){ #added session
   # Initialize reactive values to store the inputs
@@ -151,32 +113,25 @@ server<-function(input,output, session){ #added session
     diff_values <- input$difficulty
 
     values$diff_values <- c(diff_values)
-    })
-
-
-
-
-  #show list of recipces when clicking on button
-  y<-reactive(input$difficulty) %>% bindEvent(input$button)
-
-  # load dataset
-  #if(grepl(input$lol,subset_10_first$NER==TRUE)){
-
-  x<-reactive(as.data.frame(subset_10_first) %>%
-                mutate(Actions = actionButton(inputId = 'button',label= 'More')) %>%
-                filter(Difficulty == 'medium') %>%
-                bindEvent(input$button))
-
+  })
 
   y<-reactive(myfunct(values$selected_values,values$diff_values)) %>% bindEvent(input$button)
 
   output$taBle<-DT::renderDataTable({
     # call data
     DT::datatable(y())})
-
-  #output$image<- renderText({hbjg})
-  #output$recette<-renderText({jjk})
 }
 
+
+
+
+## run the app
+
 shinyApp(my_ui,server)
+
+
+
+
+############# attempts ################
+
 
