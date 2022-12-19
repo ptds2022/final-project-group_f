@@ -6,7 +6,7 @@ df <- data.frame(hunder_rows['NER'])
 
 df$sugar_present <- str_detect(df$NER, "sugar")
 
-df$ingredients <- str_extract_all(df$NER, "sugar|vanilla")
+ingredients <- c("brown sugar", "nuts", "vanilla", "milk", "butter", "bite size shredded rice biscuits")
+df$sub_ing <- map_chr(df$NER, ~ paste(str_extract(.x, ingredients), collapse = ", "))
 
-# Check if all of the words are present in each cell
-df$all_ingredients_present <- map_lgl(df$ingredients, function(x) all(c("sugar", "vanilla") %in% x))
+df$has_empty <- str_detect(df$sub_ing, "NA")
