@@ -1,5 +1,5 @@
 # load packages
-source("../R/Setup.R")
+source("R/Setup.R")
 #source('R/Ingredient present.R')
 install.packages('DT')
 library('DT')
@@ -77,6 +77,18 @@ my_ui <-fluidPage(
   )
 
 ## server
+
+#' Title
+#'
+#' @param input a character implemented by the user
+#' @param output a list of recipe
+#' @param session a d
+#'
+#' @return a data frame
+#' @export
+#'
+#' @examples
+#' shinyApp(my_ui,server)
 
 server<-function(input,output, session){ #added session
   # Initialize reactive values to store the inputs

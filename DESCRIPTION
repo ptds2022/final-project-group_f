@@ -2,9 +2,10 @@ Package: ProjectPkgF
 Type: Package
 Title: Scraps based menu app
 Version: 0.1.0
-Author: Who wrote it
-Authors@R: c(person("Joost", "Dijkstra", email = "joost.dijkstra@unil.ch", role= c("aut", "cre")), 
-  person("Edward", "", email = "", role= c("aut")), person("Amina", "lastname", email = "", role= c("aut")))
+Authors@R: c(
+  person("Joost", "Dijkstra", email = "joost.dijkstra@unil.ch", role= c("aut", "cre")), 
+  person("Edward", "Tandia", email = "edward.tandia@unil.ch", role= c("aut")), 
+  person("Amina", "Mohammed", email = "aminayasmine.mohammed@unil.ch", role= c("aut")))
 Maintainer: Joost Dijkstra <joost.dijkstra@unil.ch>
 Description: This package is a working Shiny app which let's the user fill in the leftovers they have in their fridge and pantry. The app then
             will choose meal menus based on these products with a ranking based on the difficulty of the recipes.
