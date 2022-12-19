@@ -16,7 +16,7 @@ packages <- c(
   "gapminder", "ggforce", "gh", "globals", "openintro", "profvis",
   "RSQLite", "shiny", "shinycssloaders", "shinyFeedback",
   "shinythemes", "testthat", "thematic", "tidyverse", "vroom",
-  "waiter", "xml2", "zeallot",'shiny','shinyWidgets'
+  "waiter", "xml2", "zeallot",'shiny','shinyWidgets','DT'
 )
 
 purrr::walk(packages, library, character.only = TRUE)
