@@ -21,6 +21,38 @@ packages <- c(
 
 purrr::walk(packages, library, character.only = TRUE)
 
+######################################################
+## The following sets a few option for nice reports ##
+######################################################
+
+# general options
+options(
+  digits = 3,
+  str = strOptions(strict.width = "cut"),
+  width = 69,
+  tibble.width = 69,
+  cli.unicode = FALSE
+)
+
+# ggplot options
+theme_set(theme_light())
+
+# knitr options
+opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = TRUE,
+  fig.retina = 0.8, # figures are either vectors or 300 dpi diagrams
+  dpi = 300,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold",
+  message = FALSE,
+  echo = FALSE
+)
+
 ##################### THis was previously the Ingredient seperation.R file ################################
 # install and load the stringr and dplyr packages if they're not already installed
 #install.packages(c("stringr", "dplyr"))
@@ -40,15 +72,17 @@ library(quanteda)
 library(quanteda.textstats)
 library(quanteda.textplots)
 library(stringr)
-library(DT)
 
-RecipeNLG_dataset <- read_csv("./data-raw/Recipe_new.csv")
+RecipeNLG_dataset <- read_csv("../data-raw/Recipe_new.csv")
 hunder_rows <- head(RecipeNLG_dataset, 1000)
 
 ingredient_sep <- unlist(str_extract_all(hunder_rows$NER,  "\"([^\"]*)\""))
 ingredient_sep <- gsub("\"", "", ingredient_sep)
 
 ##################################################################################
-## The following code creates the needed data in the environment to run the app ##
+## The following sources the data, values and function##
 ##################################################################################
-source("./R/Ingredient_present.R")
+
+source("Analysis recipe.R")
+source("Ingredient seperation.R")
+source("Ingredient_present.R")

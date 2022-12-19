@@ -1,9 +1,11 @@
 # load packages
-source("./R/Setup.R")
-
-values <- c("easy", "medium", "difficult")
-
+source("Setup.R")
 #source('R/Ingredient present.R')
+install.packages('DT')
+library('DT')
+lol = c('baba','mama','dada','nini','wapi') #. for tests
+values = c('easy','medium','hard') #. for tests
+
 ##shinyApp
 
 
@@ -90,8 +92,6 @@ my_ui <-fluidPage(
 
 server<-function(input,output, session){ #added session
   # Initialize reactive values to store the inputs
-  source(here::here("R/Setup.R"))
-  source(here::here("R/Setup.R"))
   values <- reactiveValues(selected_values = character(0))
 
 

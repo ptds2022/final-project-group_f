@@ -79,14 +79,3 @@ ggplot(data = crude.cos.mat, aes(x=X1, y=X2, fill=value)) +
     axis.text.y = element_text(size = 5)) +
   xlab("") +
   ylab("")
-
-### Add Difficulty columns
-hunder_rows$lenghts_ingredient <- lengths(gregexpr("\\W+", hunder_rows$NER)) + 1
-
-low_difficulty <- min(hunder_rows$lenghts_ingredient)
-medium_difficulty <- mean(hunder_rows$lenghts_ingredient)
-max_difficulty <- max(hunder_rows$lenghts_ingredient)
-
-hunder_rows_analysis <- hunder_rows %>%
-  mutate(Difficulty = case_when( lenghts_ingredient > (medium_difficulty/2) & lenghts_ingredient <= (medium_difficulty*1.5) ~ "medium", lenghts_ingredient > (medium_difficulty*1.5) ~ "hard", TRUE ~ "Low"))
-
