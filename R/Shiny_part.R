@@ -1,6 +1,6 @@
 # load packages
-source("R/Setup.R")
-source('R/Ingredient present.R')
+source("../R/Setup.R")
+#source('R/Ingredient present.R')
 install.packages('DT')
 library('DT')
 lol = c('baba','mama','dada','nini','wapi') #. for tests
@@ -55,6 +55,9 @@ my_ui <-fluidPage(
                                     create = T)),
       actionButton(inputId='button', # generate recipe
                    label ='Get my recipe ! ',
+                   icon = icon('list')),
+      actionButton(inputId='button2', # Clear input and output
+                   label ='Clear fields',
                    icon = icon('list'))
     ),
     mainPanel(id = "first",
@@ -93,7 +96,6 @@ server<-function(input,output, session){ #added session
 
     values$selected_values <- c(values$selected_values, selected_values)
 
-
     updateSelectizeInput(session, "lol", choices = ingredient_sep, selected = NULL)
 
     print(values$selected_values)
@@ -113,6 +115,15 @@ server<-function(input,output, session){ #added session
     diff_values <- input$difficulty
 
     values$diff_values <- c(diff_values)
+  })
+
+  observeEvent(input$button2, {
+    output$taBle <- renderDataTable({
+
+    })
+    output$selected_values <- renderText({
+
+    })
   })
 
   y<-reactive(myfunct(values$selected_values,values$diff_values)) %>% bindEvent(input$button)
