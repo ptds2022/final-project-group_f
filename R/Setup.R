@@ -9,7 +9,7 @@ packages <- c(
   "ggplot2", "plot.matrix", "rstan", "quanteda",
   "quanteda.textstats", "lexicon", "tidytext", "reshape2",
   "rstan",'deSolve','stats',"MASS",'ModelMetrics',"reshape",
-  'gganimate','ggimage','transformr','ggimage',
+  'gganimate','ggimage','ggimage', #'transformr'
   #readRDS
 
   #for shiny
@@ -20,7 +20,6 @@ packages <- c(
 )
 
 purrr::walk(packages, library, character.only = TRUE)
-library(boot)
 
 ######################################################
 ## The following sets a few option for nice reports ##
