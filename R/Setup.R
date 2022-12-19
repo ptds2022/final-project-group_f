@@ -73,13 +73,16 @@ library(quanteda.textstats)
 library(quanteda.textplots)
 library(stringr)
 
-RecipeNLG_dataset <- read_csv("data-raw/Recipe_new.csv")
+RecipeNLG_dataset <- read_csv("../data-raw/Recipe_new.csv")
 hunder_rows <- head(RecipeNLG_dataset, 1000)
 
 ingredient_sep <- unlist(str_extract_all(hunder_rows$NER,  "\"([^\"]*)\""))
 ingredient_sep <- gsub("\"", "", ingredient_sep)
 
 ##################################################################################
-## The following code creates the needed data in the environment to run the app ##
+## The following sources the data, values and function##
 ##################################################################################
+
+source("Analysis recipe.R")
+source("Ingredient seperation.R")
 source("Ingredient_present.R")
