@@ -34,6 +34,9 @@ While the app is on, the user has the possibility to select different ingredient
 
 If the user want to start over and generate new recipes, he/she has to click on the button 'Reset'. 
 
+Please have look at the video link below : 
+
+https://vimeo.com/782753658
 
 
 
